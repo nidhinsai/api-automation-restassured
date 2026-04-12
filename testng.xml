@@ -3,6 +3,8 @@
 <suite name="API Test Suite" verbose="2">
 
     <listeners>
+        <!-- RetryTransformer: IAnnotationTransformer — must be listed before runtime listeners -->
+        <listener class-name="com.nidhinsai.api.utils.RetryTransformer"/>
         <listener class-name="com.nidhinsai.api.listeners.ApiTestListener"/>
     </listeners>
 
@@ -27,5 +29,7 @@
             <class name="com.nidhinsai.api.tests.UsersApiTest"/>
         </classes>
     </test>
+
+</suite>
 
 </suite>
