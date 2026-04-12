@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["page", "per_page", "data"],
+  "properties": {
+    "page": { "type": "integer" },
+    "per_page": { "type": "integer" },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "email", "first_name", "last_name"],
+        "properties": {
+          "id": { "type": "integer" },
+          "email": { "type": "string" },
+          "first_name": { "type": "string" },
+          "last_name": { "type": "string" }
+        }
+      }
+    }
+  }
+}
