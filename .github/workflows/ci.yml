@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    # Nightly regression at 02:30 UTC
     - cron: '30 2 * * *'
   workflow_dispatch:
     inputs:
@@ -49,9 +48,22 @@ jobs:
             -Denv=${{ github.event.inputs.env || 'qa' }} \
             -Dmaven.test.failure.ignore=true
 
+      - name: Check for test failures
+        run: |
+          REPORTS=$(find target/surefire-reports -name '*.xml' 2>/dev/null || true)
+          if [ -z "$REPORTS" ]; then
+            echo "No Surefire reports found — build may have failed before tests ran."
+            exit 1
+          fi
+          if grep -l 'failures="[1-9]\|errors="[1-9]' $REPORTS 2>/dev/null | grep -q .; then
+            echo "::error::One or more API tests failed. Check the Allure report in artifacts."
+            exit 1
+          fi
+          echo "All API tests passed."
+
       - name: Generate Allure report
         if: always()
-        continue-on-error: true   # no-op when allure-results is empty
+        continue-on-error: true
         run: mvn allure:report -q
 
       - name: Upload Allure results
