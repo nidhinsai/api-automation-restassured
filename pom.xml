@@ -15,7 +15,7 @@
         <testng.version>7.10.2</testng.version>
         <jackson.version>2.17.0</jackson.version>
         <log4j.version>2.23.1</log4j.version>
-        <allure.version>2.27.0</allure.version>
+        <allure.version>2.34.0</allure.version>
         <aspectj.version>1.9.22</aspectj.version>
         <jacoco.version>0.8.12</jacoco.version>
     </properties>
